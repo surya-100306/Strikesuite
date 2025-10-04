@@ -81,6 +81,27 @@ class BruteForcer:
             'technical': ['admin123', 'root123', 'user123', 'test123']
         }
         
+        # Enhanced brute force capabilities
+        self.ai_enhanced_patterns = True
+        self.behavioral_analysis = True
+        self.adaptive_techniques = True
+        self.threat_intelligence = True
+        
+        # Advanced attack techniques
+        self.attack_techniques = {
+            'dictionary': True,
+            'hybrid': True,
+            'mask': True,
+            'rule_based': True,
+            'intelligent': True,
+            'machine_learning': True
+        }
+        
+        # Performance optimization
+        self.attack_cache = {}
+        self.rate_limit_detection = True
+        self.concurrent_attacks = 5
+        
         # Advanced wordlist categories
         self.wordlist_categories = {
             'usernames': ['common', 'defaults', 'technical', 'seasonal', 'company'],

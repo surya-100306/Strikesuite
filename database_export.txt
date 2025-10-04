@@ -1,0 +1,143 @@
+🛡️ StrikeSuite Database Export
+==================================================
+
+📋 Table: scan_history
+------------------------------
+Columns:
+  id (INTEGER)
+  scan_type (TEXT)
+  target (TEXT)
+  start_time (TEXT)
+  end_time (TEXT)
+  status (TEXT)
+  results (TEXT)
+  created_at (TIMESTAMP)
+
+Data (4 records):
+  1. (1, 'network_scan', '192.168.1.1', '2025-10-04T17:45:54.266023', '2025-10-04T18:00:54.266101', 'completed', '{"open_ports": [22, 80, 443], "services": {"22": "SSH", "80": "HTTP", "443": "HTTPS"}, "os_info": "Linux 4.15.0-91-generic"}', '2025-10-04 14:15:54')
+  2. (2, 'vulnerability_scan', 'https://example.com', '2025-10-04T18:45:54.266207', '2025-10-04T19:15:54.266277', 'completed', '{"vulnerabilities_found": 3, "severity_breakdown": {"high": 1, "medium": 2, "low": 0}, "scan_duration": "25 minutes"}', '2025-10-04 14:15:54')
+  3. (3, 'api_test', 'https://api.example.com', '2025-10-04T19:00:54.266495', '2025-10-04T19:30:54.266582', 'completed', '{"endpoints_tested": 15, "vulnerabilities": 2, "rate_limiting": "detected"}', '2025-10-04 14:15:54')
+  4. (4, 'network_scan', '192.168.1.100', '', '', 'completed', '{"open_ports": [22, 80, 443], "services": {"22": "SSH", "80": "HTTP", "443": "HTTPS"}, "vulnerabilities": [{"type": "SSH Weak Cipher", "severity": "medium", "description": "SSH supports weak encryption"}]}', '2025-10-04 14:18:48')
+
+📋 Table: vulnerabilities
+------------------------------
+Columns:
+  id (INTEGER)
+  scan_id (INTEGER)
+  target (TEXT)
+  vulnerability_type (TEXT)
+  severity (TEXT)
+  description (TEXT)
+  recommendation (TEXT)
+  evidence (TEXT)
+  created_at (TIMESTAMP)
+
+Data (5 records):
+  1. (1, 1, '192.168.1.1', 'SSH Weak Cipher', 'medium', 'SSH server supports weak encryption algorithms', 'Disable weak ciphers and use only strong encryption', 'SSH-2.0-OpenSSH_7.4 supports weak ciphers', '2025-10-04 14:15:54')
+  2. (2, 2, 'https://example.com', 'Missing Security Headers', 'low', 'Missing X-Frame-Options and X-Content-Type-Options headers', 'Add security headers to prevent clickjacking and MIME sniffing', 'HTTP response missing security headers', '2025-10-04 14:15:54')
+  3. (3, 2, 'https://example.com', 'SSL/TLS Weak Protocol', 'high', 'Server supports TLS 1.0 and 1.1 which are deprecated', 'Disable TLS 1.0 and 1.1, use only TLS 1.2+', 'TLS 1.0 and 1.1 detected in SSL scan', '2025-10-04 14:15:54')
+  4. (4, 3, 'https://api.example.com', 'Broken Object Level Authorization', 'high', 'API allows access to other users data without proper authorization', 'Implement proper authorization checks for object access', 'Successfully accessed user data with different user ID', '2025-10-04 14:15:54')
+  5. (5, 4, '192.168.1.100', 'SSH Weak Cipher', 'medium', 'SSH supports weak encryption', '', '', '2025-10-04 14:18:48')
+
+📋 Table: credentials
+------------------------------
+Columns:
+  id (INTEGER)
+  scan_id (INTEGER)
+  target (TEXT)
+  service (TEXT)
+  username (TEXT)
+  password (TEXT)
+  created_at (TIMESTAMP)
+
+Data (2 records):
+  1. (1, 1, '192.168.1.1', 'SSH', 'admin', 'admin123', '2025-10-04 14:15:54')
+  2. (2, 1, '192.168.1.1', 'HTTP', 'admin', 'password', '2025-10-04 14:15:54')
+
+📋 Table: settings
+------------------------------
+Columns:
+  key (TEXT)
+  value (TEXT)
+  updated_at (TIMESTAMP)
+
+Data (7 records):
+  1. ('max_threads', '100', '2025-10-04 14:15:54')
+  2. ('scan_timeout', '30', '2025-10-04 14:15:54')
+  3. ('stealth_mode', 'false', '2025-10-04 14:15:54')
+  4. ('auto_save_reports', 'true', '2025-10-04 14:15:54')
+  5. ('notification_enabled', 'true', '2025-10-04 14:15:54')
+  6. ('last_scan', '2025-10-04T19:48:48.663720', '2025-10-04 14:18:48')
+  7. ('scan_count', '1', '2025-10-04 14:18:48')
+
+📋 Table: plugins
+------------------------------
+Columns:
+  id (INTEGER)
+  name (TEXT)
+  version (TEXT)
+  description (TEXT)
+  author (TEXT)
+  category (TEXT)
+  enabled (BOOLEAN)
+  created_at (TIMESTAMP)
+
+Data (3 records):
+  1. (1, 'ssl_analyzer', '1.0.0', 'SSL/TLS security analyzer', 'StrikeSuite Team', 'scanner', 1, '2025-10-04 14:15:54')
+  2. (2, 'subdomain_enum', '1.2.0', 'Subdomain enumeration tool', 'StrikeSuite Team', 'scanner', 1, '2025-10-04 14:15:54')
+  3. (3, 'directory_bruteforce', '1.1.0', 'Directory and file brute forcer', 'StrikeSuite Team', 'scanner', 1, '2025-10-04 14:15:54')
+
+📋 Table: advanced_scan_results
+------------------------------
+Columns:
+  id (INTEGER)
+  scan_id (INTEGER)
+  scan_type (TEXT)
+  target (TEXT)
+  technique (TEXT)
+  result_data (TEXT)
+  confidence_score (REAL)
+  false_positive (BOOLEAN)
+  verified (BOOLEAN)
+  created_at (TIMESTAMP)
+
+Data (2 records):
+  1. (1, 1, 'network_scan', '192.168.1.1', 'os_fingerprinting', '{"os": "Linux", "version": "4.15.0", "confidence": 0.95}', 0.95, 0, 1, '2025-10-04 14:15:54')
+  2. (2, 2, 'vulnerability_scan', 'https://example.com', 'ssl_analysis', '{"ssl_version": "TLS 1.2", "cipher_strength": "weak"}', 0.88, 0, 1, '2025-10-04 14:15:54')
+
+📋 Table: threat_intelligence
+------------------------------
+Columns:
+  id (INTEGER)
+  indicator (TEXT)
+  indicator_type (TEXT)
+  threat_level (TEXT)
+  source (TEXT)
+  description (TEXT)
+  first_seen (TIMESTAMP)
+  last_seen (TIMESTAMP)
+  created_at (TIMESTAMP)
+
+Data (2 records):
+  1. (1, '192.168.1.100', 'IP', 'medium', 'internal_scan', 'Suspicious activity detected', '2025-10-03T19:45:54.282785', '2025-10-04T17:45:54.282817', '2025-10-04 14:15:54')
+  2. (2, 'malicious-domain.com', 'domain', 'high', 'threat_feed', 'Known malicious domain', '2025-09-27T19:45:54.282831', '2025-10-03T19:45:54.282838', '2025-10-04 14:15:54')
+
+📋 Table: behavioral_patterns
+------------------------------
+Columns:
+  id (INTEGER)
+  target (TEXT)
+  pattern_type (TEXT)
+  pattern_data (TEXT)
+  confidence (REAL)
+  frequency (INTEGER)
+  first_detected (TIMESTAMP)
+  last_detected (TIMESTAMP)
+  created_at (TIMESTAMP)
+
+Data (2 records):
+  1. (1, '192.168.1.1', 'connection_pattern', '{"connections_per_minute": 15, "peak_hours": [9, 14, 18]}', 0.85, 25, '2025-10-01T19:45:54.283325', '2025-10-04T18:45:54.283342', '2025-10-04 14:15:54')
+  2. (2, 'https://example.com', 'response_pattern', '{"avg_response_time": 250, "error_rate": 0.02}', 0.92, 150, '2025-09-29T19:45:54.283395', '2025-10-04T19:15:54.283404', '2025-10-04 14:15:54')
+
+
+✅ Database export completed

@@ -34,7 +34,11 @@ class PluginManager:
             'resource_management': True,
             'security_sandboxing': True,
             'performance_monitoring': True,
-            'error_recovery': True
+            'error_recovery': True,
+            'ai_enhanced_execution': True,
+            'behavioral_analysis': True,
+            'threat_intelligence': True,
+            'adaptive_execution': True
         }
         
         # Plugin categories and types

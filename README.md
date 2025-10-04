@@ -36,6 +36,9 @@ python strikesuite.py
 - OS fingerprinting and service detection
 - Vulnerability scanning integration
 - Stealth mode operations
+- AI-enhanced detection algorithms
+- Behavioral pattern analysis
+- Threat intelligence integration
 
 ### 🌐 **API Security Testing**
 - OWASP API Top 10 coverage

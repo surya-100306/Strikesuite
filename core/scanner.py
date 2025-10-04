@@ -48,6 +48,20 @@ class NetworkScanner:
         self.os_fingerprints = {}
         self.vulnerabilities = []
         
+        # Enhanced scanning capabilities
+        self.stealth_mode = False
+        self.advanced_techniques = {
+            'os_detection': True,
+            'service_detection': True,
+            'vulnerability_scan': True,
+            'banner_grabbing': True,
+            'version_detection': True
+        }
+        
+        # Performance optimization
+        self.scan_cache = {}
+        self.rate_limit_delay = 0.1
+        
         # Advanced port lists
         self.common_ports = [21, 22, 23, 25, 53, 80, 110, 135, 139, 143, 443, 993, 995, 1433, 1521, 3306, 3389, 5432, 5900, 6379, 27017]
         self.top_1000_ports = list(range(1, 1001))

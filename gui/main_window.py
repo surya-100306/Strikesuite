@@ -10,9 +10,10 @@ from pathlib import Path
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QTabWidget, 
                              QVBoxLayout, QHBoxLayout, QWidget, QLabel,
                              QPushButton, QTextEdit, QStatusBar, QMenuBar,
-                             QAction, QMessageBox, QFileDialog, QScrollArea)
-from PyQt5.QtCore import Qt, QThread, pyqtSignal
-from PyQt5.QtGui import QIcon, QFont
+                             QAction, QMessageBox, QFileDialog, QScrollArea,
+                             QProgressBar, QSplitter, QDockWidget, QToolBar)
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QTimer, QSettings
+from PyQt5.QtGui import QIcon, QFont, QPalette, QColor
 
 # Add project root to path
 project_root = Path(__file__).parent.parent

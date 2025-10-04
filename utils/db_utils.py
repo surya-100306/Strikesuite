@@ -126,6 +126,53 @@ class DatabaseUtils:
                 )
             ''')
             
+            # Create advanced scan results table
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS advanced_scan_results (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    scan_id INTEGER,
+                    scan_type TEXT NOT NULL,
+                    target TEXT NOT NULL,
+                    technique TEXT NOT NULL,
+                    result_data TEXT,
+                    confidence_score REAL,
+                    false_positive BOOLEAN DEFAULT 0,
+                    verified BOOLEAN DEFAULT 0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (scan_id) REFERENCES scan_history (id)
+                )
+            ''')
+            
+            # Create threat intelligence table
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS threat_intelligence (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    indicator TEXT UNIQUE NOT NULL,
+                    indicator_type TEXT NOT NULL,
+                    threat_level TEXT NOT NULL,
+                    source TEXT,
+                    description TEXT,
+                    first_seen TIMESTAMP,
+                    last_seen TIMESTAMP,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            ''')
+            
+            # Create behavioral patterns table
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS behavioral_patterns (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    target TEXT NOT NULL,
+                    pattern_type TEXT NOT NULL,
+                    pattern_data TEXT,
+                    confidence REAL,
+                    frequency INTEGER DEFAULT 1,
+                    first_detected TIMESTAMP,
+                    last_detected TIMESTAMP,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            ''')
+            
             self.connection.commit()
             self.logger.info("Database initialized successfully")
             return True

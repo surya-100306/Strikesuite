@@ -1,0 +1,66 @@
+{
+  "profiles": {
+    "quick": {
+      "name": "Quick Scan",
+      "description": "Fast scan of common ports",
+      "ports": "1-1000",
+      "threads": 100,
+      "timeout": 1.0,
+      "service_detection": true,
+      "banner_grab": true
+    },
+    "comprehensive": {
+      "name": "Comprehensive Scan",
+      "description": "Thorough scan of all ports",
+      "ports": "1-65535",
+      "threads": 200,
+      "timeout": 2.0,
+      "service_detection": true,
+      "banner_grab": true,
+      "vulnerability_scan": true,
+      "ssl_analysis": true
+    },
+    "stealth": {
+      "name": "Stealth Scan",
+      "description": "Slow, stealthy scan to avoid detection",
+      "ports": "1-1000",
+      "threads": 10,
+      "timeout": 5.0,
+      "service_detection": false,
+      "banner_grab": false,
+      "rate_limit": 2.0
+    },
+    "web": {
+      "name": "Web Application Scan",
+      "description": "Focused on web services",
+      "ports": "80,443,8080,8443,8000,9000",
+      "threads": 50,
+      "timeout": 3.0,
+      "service_detection": true,
+      "banner_grab": true,
+      "web_vulnerability_scan": true,
+      "ssl_analysis": true
+    },
+    "database": {
+      "name": "Database Scan",
+      "description": "Focused on database services",
+      "ports": "1433,3306,5432,6379,27017,5984",
+      "threads": 20,
+      "timeout": 5.0,
+      "service_detection": true,
+      "banner_grab": true,
+      "default_credentials": true
+    },
+    "network": {
+      "name": "Network Infrastructure Scan",
+      "description": "Network devices and infrastructure",
+      "ports": "22,23,80,443,161,162,179,636,993,995",
+      "threads": 30,
+      "timeout": 3.0,
+      "service_detection": true,
+      "banner_grab": true,
+      "snmp_scan": true
+    }
+  },
+  "default_profile": "quick"
+}

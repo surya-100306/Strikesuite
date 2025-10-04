@@ -1,0 +1,38 @@
+{
+  "database": {
+    "type": "sqlite",
+    "path": "database/strikesuite.db",
+    "backup_enabled": true,
+    "backup_interval_hours": 24,
+    "backup_retention_days": 30
+  },
+  "tables": {
+    "scan_history": {
+      "retention_days": 90,
+      "auto_cleanup": true
+    },
+    "vulnerabilities": {
+      "retention_days": 365,
+      "auto_cleanup": false
+    },
+    "credentials": {
+      "retention_days": 30,
+      "auto_cleanup": true,
+      "encrypt": true
+    },
+    "settings": {
+      "retention_days": -1,
+      "auto_cleanup": false
+    }
+  },
+  "performance": {
+    "connection_pool_size": 10,
+    "query_timeout": 30,
+    "enable_wal_mode": true
+  },
+  "security": {
+    "encrypt_sensitive_data": true,
+    "audit_logging": true,
+    "access_control": true
+  }
+}

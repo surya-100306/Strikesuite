@@ -1,0 +1,8 @@
+{
+  "name": "StrikeSuite",
+  "version": "2.0.0",
+  "debug": false,
+  "log_level": "INFO",
+  "max_threads": 100,
+  "timeout": 30
+}

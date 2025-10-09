@@ -1,0 +1,7 @@
+{
+  "type": "sqlite",
+  "path": "database/strikesuite.db",
+  "backup_enabled": true,
+  "backup_interval": 3600,
+  "max_connections": 10
+}

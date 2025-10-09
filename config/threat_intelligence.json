@@ -1,0 +1,10 @@
+{
+  "feeds_enabled": true,
+  "update_interval": 3600,
+  "max_indicators": 10000,
+  "cache_duration": 86400,
+  "sources": [
+    "local_database",
+    "threat_feeds"
+  ]
+}

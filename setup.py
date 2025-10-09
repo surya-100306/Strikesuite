@@ -41,15 +41,21 @@ setup(
     install_requires=read_requirements(),
     entry_points={
         "console_scripts": [
-            "strikesuite=strikesuite:main",
+            "strikesuite=strikesuite.main:main",
+            "strikesuite-cli=strikesuite.cli:main",
         ],
     },
     include_package_data=True,
     package_data={
-        "": ["*.txt", "*.md", "*.json", "*.html", "*.css", "*.js"],
-        "wordlists": ["*.txt"],
-        "payloads": ["**/*.py", "**/*.sh", "**/*.ps1", "**/*.php", "**/*.asp", "**/*.jsp"],
-        "assets": ["**/*.ico", "**/*.png", "**/*.jpg", "**/*.gif"],
+        "strikesuite": [
+            "*.txt", "*.md", "*.json", "*.html", "*.css", "*.js",
+            "wordlists/*.txt",
+            "payloads/**/*.py", "payloads/**/*.sh", "payloads/**/*.ps1", 
+            "payloads/**/*.php", "payloads/**/*.asp", "payloads/**/*.jsp",
+            "assets/**/*.ico", "assets/**/*.png", "assets/**/*.jpg", "assets/**/*.gif",
+            "config/*.json",
+            "templates/*.html", "templates/*.md"
+        ],
     },
     keywords="security, penetration-testing, vulnerability-assessment, cybersecurity",
     project_urls={
@@ -57,5 +63,24 @@ setup(
         "Source": "https://github.com/strikesuite/strikesuite",
         "Documentation": "https://strikesuite.readthedocs.io/",
     },
+    zip_safe=False,
+    extras_require={
+        "dev": [
+            "black>=22.0.0",
+            "flake8>=5.0.0", 
+            "mypy>=1.0.0",
+            "pre-commit>=2.20.0",
+            "pytest>=7.1.0",
+            "pytest-cov>=4.0.0"
+        ],
+        "gui": [
+            "PyQt5>=5.15.0"
+        ],
+        "advanced": [
+            "scapy>=2.4.5",
+            "selenium>=4.8.0",
+            "sqlalchemy>=1.4.0"
+        ]
+    }
 )
 

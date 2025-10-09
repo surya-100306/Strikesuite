@@ -1,539 +1,539 @@
-# StrikeSuite: Advanced Cybersecurity Testing Framework
-## Project Book & Technical Documentation
+# 🛡️ StrikeSuite Project Book
+## Complete Documentation & Technical Reference
 
 ---
 
-## Table of Contents
+## 📋 Table of Contents
 
 1. [Project Overview](#project-overview)
 2. [Architecture & Design](#architecture--design)
 3. [Core Modules](#core-modules)
-4. [GUI Components](#gui-components)
-5. [CLI Interface](#cli-interface)
-6. [Advanced Features](#advanced-features)
-7. [Installation & Setup](#installation--setup)
-8. [User Guide](#user-guide)
-9. [Developer Guide](#developer-guide)
-10. [API Reference](#api-reference)
-11. [Troubleshooting](#troubleshooting)
-12. [Contributing](#contributing)
+4. [Enhanced Features](#enhanced-features)
+5. [GUI Components](#gui-components)
+6. [Database System](#database-system)
+7. [Plugin System](#plugin-system)
+8. [Security Features](#security-features)
+9. [Performance Optimization](#performance-optimization)
+10. [Installation & Setup](#installation--setup)
+11. [Usage Guide](#usage-guide)
+12. [API Reference](#api-reference)
+13. [Developer Guide](#developer-guide)
+14. [Testing Framework](#testing-framework)
+15. [Deployment](#deployment)
+16. [Troubleshooting](#troubleshooting)
+17. [Contributing](#contributing)
+18. [Roadmap](#roadmap)
 
 ---
 
-## Project Overview
+## 🎯 Project Overview
 
 ### What is StrikeSuite?
 
-StrikeSuite is a comprehensive, advanced cybersecurity testing framework designed for penetration testers, security researchers, and cybersecurity professionals. It provides both GUI and CLI interfaces for conducting various types of security assessments.
+**StrikeSuite** is an advanced, comprehensive cybersecurity testing framework designed for penetration testers, security researchers, and cybersecurity professionals. It provides a unified platform for conducting various security assessments, from network scanning to vulnerability assessment, API testing, and exploitation.
 
 ### Key Features
 
-- **Multi-Modal Interface**: Both graphical (PyQt5) and command-line interfaces
-- **Advanced Scanning**: Network, vulnerability, API, and application security testing
-- **Exploitation Testing**: Safe proof-of-concept demonstrations
-- **Post-Exploitation Analysis**: System enumeration and privilege escalation
-- **Plugin Architecture**: Extensible framework for custom tools
-- **Comprehensive Reporting**: PDF and HTML report generation
-- **Database Integration**: SQLite-based data persistence
+- **🔍 Advanced Network Scanning**: Multi-threaded scanning with stealth techniques
+- **🌐 API Security Testing**: OWASP API Top 10 coverage with advanced techniques
+- **🔐 Vulnerability Assessment**: Comprehensive CVE database integration
+- **💥 Brute Force Attacks**: Intelligent attack techniques with pattern generation
+- **🎯 Exploitation Testing**: Safe proof-of-concept demonstrations
+- **🔍 Post-Exploitation Analysis**: Privilege escalation and persistence analysis
+- **🔌 Plugin System**: Extensible architecture with dynamic loading
+- **📊 Comprehensive Reporting**: Multiple output formats with detailed analysis
 
 ### Target Audience
 
-- Penetration Testers
-- Security Researchers
-- Red Team Operators
-- Bug Bounty Hunters
-- Security Consultants
-- Cybersecurity Students
+- **Penetration Testers**: Professional security testing
+- **Security Researchers**: Vulnerability research and analysis
+- **Cybersecurity Professionals**: Security assessment and auditing
+- **Bug Bounty Hunters**: Automated security testing
+- **Security Consultants**: Client security assessments
+- **Red Team Operators**: Advanced persistent threat simulation
 
 ---
 
-## Architecture & Design
+## 🏗️ Architecture & Design
 
 ### System Architecture
 
 ```
-StrikeSuite Framework
-├── Core Modules
-│   ├── Network Scanner
-│   ├── Vulnerability Scanner
-│   ├── API Tester
-│   ├── Brute Forcer
-│   ├── Exploit Module
-│   └── Post-Exploitation
-├── GUI Components
-│   ├── Main Window
-│   ├── Network Tab
-│   ├── API Tab
-│   ├── Vulnerability Tab
-│   ├── Brute Force Tab
-│   ├── Exploitation Tab
-│   ├── Post-Exploitation Tab
-│   └── Plugins Tab
-├── CLI Interface
-├── Plugin System
-├── Database Layer
-└── Reporting Engine
+┌─────────────────────────────────────────────────────────────┐
+│                    StrikeSuite Framework                    │
+├─────────────────────────────────────────────────────────────┤
+│  🖥️ GUI Layer (PyQt5)                                      │
+│  ├── Main Window                                           │
+│  ├── Network Tab                                           │
+│  ├── API Tab                                               │
+│  ├── Vulnerability Tab                                     │
+│  ├── Brute Force Tab                                       │
+│  ├── Exploitation Tab                                      │
+│  ├── Post-Exploitation Tab                                  │
+│  └── Plugins Tab                                           │
+├─────────────────────────────────────────────────────────────┤
+│  💻 CLI Layer                                              │
+│  ├── Command Line Interface                                 │
+│  ├── Argument Parsing                                      │
+│  └── Output Formatting                                     │
+├─────────────────────────────────────────────────────────────┤
+│  🔧 Core Modules                                           │
+│  ├── Network Scanner                                       │
+│  ├── API Tester                                            │
+│  ├── Vulnerability Scanner                                 │
+│  ├── Brute Forcer                                          │
+│  ├── Exploit Module                                        │
+│  ├── Post-Exploitation                                     │
+│  └── Plugin Manager                                        │
+├─────────────────────────────────────────────────────────────┤
+│  🛡️ Enhanced Features                                     │
+│  ├── Threat Intelligence Engine                            │
+│  ├── Performance Optimizer                                 │
+│  ├── Advanced Scanner                                      │
+│  └── Modern GUI                                            │
+├─────────────────────────────────────────────────────────────┤
+│  🗄️ Data Layer                                            │
+│  ├── SQLite Database                                       │
+│  ├── Assessment Results                                    │
+│  ├── Report Aggregator                                     │
+│  └── Enhanced Reporter                                     │
+├─────────────────────────────────────────────────────────────┤
+│  🔌 Plugin System                                         │
+│  ├── Dynamic Loading                                       │
+│  ├── Hot Reloading                                         │
+│  ├── Security Sandboxing                                   │
+│  └── Performance Monitoring                                │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ### Design Principles
 
-1. **Modularity**: Each component is independent and can be used separately
-2. **Extensibility**: Plugin system allows for custom functionality
-3. **Security**: Safe testing environment with proper safeguards
-4. **Usability**: Intuitive interfaces for both beginners and experts
-5. **Performance**: Optimized for speed and resource efficiency
+1. **Modularity**: Each component is independently functional
+2. **Extensibility**: Plugin system for custom functionality
+3. **Performance**: Multi-threaded operations with optimization
+4. **Security**: Safe testing practices with built-in safeguards
+5. **Usability**: Intuitive GUI and CLI interfaces
+6. **Reliability**: Comprehensive error handling and recovery
 
 ---
 
-## Core Modules
+## 🔧 Core Modules
 
-### 1. Network Scanner (`core/scanner.py`)
+### 1. Network Scanner (`strikesuite/core/scanner.py`)
 
-**Purpose**: Advanced network port scanning and service detection
+**Purpose**: Advanced multi-threaded network scanning with stealth techniques
 
 **Key Features**:
-- Multiple scan types (TCP, SYN, UDP, Stealth)
-- OS fingerprinting
-- Service detection and banner grabbing
-- Vulnerability scanning integration
-- Stealth mode operations
+- Multi-threaded scanning (up to 200 threads)
+- Stealth scanning techniques
+- OS fingerprinting and service detection
+- Vulnerability identification during scans
+- Performance optimization
 
-**Advanced Capabilities**:
+**Main Classes**:
 ```python
-# Advanced port scanning
-scanner = NetworkScanner()
-scan_options = {
-    'scan_type': 'tcp_connect',
-    'ports': [22, 80, 443, 8080],
-    'os_detection': True,
-    'service_detection': True,
-    'vulnerability_scan': True,
-    'stealth_mode': False
-}
-results = scanner.advanced_port_scan(target, scan_options)
+class NetworkScanner:
+    def __init__(self, max_threads=200, timeout=0.5, scan_type="tcp")
+    def scan_network(self, target, ports=None, scan_type="tcp")
+    def scan_ports(self, target, ports, scan_type="tcp")
+    def stealth_scan(self, target, ports=None)
+    def os_fingerprint(self, target)
+    def service_detection(self, target, port)
 ```
 
-### 2. Vulnerability Scanner (`core/vulnerability_scanner.py`)
-
-**Purpose**: Comprehensive vulnerability assessment
-
-**Key Features**:
-- SSL/TLS security analysis
-- HTTP header security checks
-- Web application vulnerability scanning
-- CVE database integration
-- False positive reduction
-
-**Advanced Capabilities**:
+**Usage Example**:
 ```python
-# Advanced vulnerability scanning
-scanner = VulnerabilityScanner(scan_depth='deep', stealth_mode=True)
-scan_options = {
-    'os_fingerprinting': True,
-    'service_fingerprinting': True,
-    'exploit_verification': True,
-    'false_positive_reduction': True,
-    'custom_payloads': True
-}
-results = scanner.advanced_vulnerability_scan(targets, scan_options)
+from strikesuite.core import NetworkScanner
+
+scanner = NetworkScanner(max_threads=100, timeout=1.0)
+results = scanner.scan_network("192.168.1.0/24")
 ```
 
-### 3. API Tester (`core/api_tester.py`)
+### 2. API Tester (`strikesuite/core/api_tester.py`)
 
-**Purpose**: API security testing and OWASP API Top 10 coverage
+**Purpose**: OWASP API Top 10 security testing framework
 
 **Key Features**:
-- OWASP API Top 10 testing
+- OWASP API Top 10 coverage
 - JWT security analysis
-- Rate limiting testing
-- Parameter pollution
-- Fuzzing capabilities
+- Rate limiting and bypass testing
+- Advanced fuzzing capabilities
+- Authentication testing
 
-**Advanced Capabilities**:
+**Main Classes**:
 ```python
-# Advanced API testing
-tester = APITester(target, advanced_mode=True, stealth_mode=False)
-test_options = {
-    'test_depth': 'comprehensive',
-    'fuzzing': True,
-    'parameter_pollution': True,
-    'jwt_analysis': True,
-    'rate_limit_bypass': True
-}
-results = tester.advanced_api_test(endpoints, test_options)
+class APITester:
+    def __init__(self, base_url, headers=None, timeout=10)
+    def test_authentication(self, endpoint, method="GET")
+    def test_authorization(self, endpoint, method="GET")
+    def test_input_validation(self, endpoint, method="POST")
+    def test_rate_limiting(self, endpoint, method="GET")
+    def test_jwt_security(self, token)
 ```
 
-### 4. Brute Forcer (`core/brute_forcer.py`)
+**Usage Example**:
+```python
+from strikesuite.core import APITester
 
-**Purpose**: Advanced brute force attack capabilities
+tester = APITester("https://api.example.com")
+results = tester.test_authentication("/auth/login")
+```
+
+### 3. Vulnerability Scanner (`strikesuite/core/vulnerability_scanner.py`)
+
+**Purpose**: Comprehensive vulnerability assessment with CVE integration
 
 **Key Features**:
-- Multiple attack techniques (Intelligent, Dictionary, Hybrid, Mask, Rule-based)
+- CVE database integration
+- SSL/TLS security analysis
+- Web application vulnerability scanning
+- False positive reduction
+- CVSS scoring
+
+**Main Classes**:
+```python
+class VulnerabilityScanner:
+    def __init__(self, scan_depth="standard", stealth_mode=False)
+    def scan_vulnerabilities(self, target, scan_type="comprehensive")
+    def check_ssl_security(self, target, port=443)
+    def scan_web_application(self, target)
+    def lookup_cve(self, service, version)
+```
+
+**Usage Example**:
+```python
+from strikesuite.core import VulnerabilityScanner
+
+scanner = VulnerabilityScanner(scan_depth="deep")
+vulnerabilities = scanner.scan_vulnerabilities("https://example.com")
+```
+
+### 4. Brute Forcer (`strikesuite/core/brute_forcer.py`)
+
+**Purpose**: Intelligent brute force attack capabilities
+
+**Key Features**:
 - Advanced password pattern generation
 - Rate limit detection and bypass
 - Service-specific credential patterns
-- Database brute force capabilities
+- Concurrent attack capabilities
 
-**Advanced Capabilities**:
+**Main Classes**:
 ```python
-# Advanced brute force attacks
-brute_forcer = BruteForcer()
-brute_options = {
-    'technique': 'intelligent',
-    'attack_mode': 'stealth',
-    'wordlist_category': 'common',
-    'pattern_matching': True,
-    'rate_limit_detection': True,
-    'max_attempts': 1000
-}
-results = brute_forcer.advanced_brute_force(target, service, brute_options)
+class BruteForcer:
+    def __init__(self, max_threads=50, timeout=5)
+    def brute_force_ssh(self, target, username, password_list)
+    def brute_force_http(self, target, username, password_list)
+    def brute_force_ftp(self, target, username, password_list)
+    def generate_password_patterns(self, base_words)
 ```
 
-### 5. Exploit Module (`core/exploit_module.py`)
+### 5. Exploit Module (`strikesuite/core/exploit_module.py`)
 
-**Purpose**: Safe exploitation testing and proof-of-concept demonstrations
+**Purpose**: Safe proof-of-concept exploitation testing
 
 **Key Features**:
+- Safe exploitation demonstrations
 - Advanced payload generation
 - Evasion techniques
-- Polymorphic payloads
-- Exploit chaining
-- Safe testing environment
+- Exploit chaining capabilities
 
-**Advanced Capabilities**:
+**Main Classes**:
 ```python
-# Advanced exploitation testing
-exploit = ExploitModule(advanced_mode=True, stealth_mode=False)
-exploit_options = {
-    'test_depth': 'comprehensive',
-    'payload_generation': True,
-    'evasion_techniques': True,
-    'exploit_chaining': True
-}
-results = exploit.advanced_exploitation_test(target, exploit_options)
+class ExploitModule:
+    def __init__(self, safe_mode=True)
+    def test_exploit(self, target, exploit_type)
+    def generate_payload(self, exploit_type, target_info)
+    def chain_exploits(self, exploits)
 ```
 
-### 6. Post-Exploitation (`core/post_exploitation.py`)
+### 6. Post-Exploitation (`strikesuite/core/post_exploitation.py`)
 
-**Purpose**: System enumeration and privilege escalation analysis
+**Purpose**: Post-exploitation analysis and enumeration
 
 **Key Features**:
 - Privilege escalation analysis
 - Persistence mechanism detection
 - Lateral movement analysis
-- Data exfiltration techniques
 - System enumeration
 
-**Advanced Capabilities**:
+**Main Classes**:
 ```python
-# Advanced post-exploitation analysis
-post_exploit = PostExploitation(advanced_mode=True, stealth_mode=False)
-post_options = {
-    'analysis_depth': 'comprehensive',
-    'privilege_escalation': True,
-    'persistence_analysis': True,
-    'lateral_movement': True
-}
-results = post_exploit.advanced_post_exploitation(target, post_options)
+class PostExploitation:
+    def __init__(self, target_system)
+    def enumerate_system(self)
+    def check_privilege_escalation(self)
+    def analyze_persistence(self)
+    def lateral_movement_analysis(self)
 ```
 
 ---
 
-## GUI Components
+## 🚀 Enhanced Features
 
-### Main Window (`gui/main_window.py`)
+### 1. Threat Intelligence Engine (`strikesuite/core/threat_intelligence.py`)
 
-The main application window that hosts all tabs and provides the primary interface.
+**Purpose**: Real-time threat intelligence and IOC analysis
 
-**Features**:
+**Key Features**:
+- Real-time threat feed integration
+- IOC analysis and correlation
+- Reputation analysis (IP, domain, file hash)
+- Threat attribution
+- Custom threat rules
+
+**Main Classes**:
+```python
+class ThreatIntelligenceEngine:
+    def __init__(self)
+    def analyze_ip_reputation(self, ip_address)
+    def analyze_domain_reputation(self, domain)
+    def analyze_file_hash(self, file_hash)
+    def generate_threat_report(self, indicators)
+```
+
+### 2. Performance Optimizer (`strikesuite/core/performance_optimizer.py`)
+
+**Purpose**: Advanced performance monitoring and optimization
+
+**Key Features**:
+- Real-time performance monitoring
+- Memory management optimization
+- CPU usage optimization
+- Database performance tuning
+- Task scheduling optimization
+
+**Main Classes**:
+```python
+class PerformanceMonitor:
+    def __init__(self)
+    def start_monitoring(self, interval=1.0)
+    def get_metrics(self)
+    def optimize_performance(self)
+
+class TaskOptimizer:
+    def __init__(self)
+    def optimize_task_scheduling(self)
+    def batch_process_tasks(self, tasks)
+```
+
+### 3. Enhanced Scanner (`strikesuite/core/enhanced_scanner.py`)
+
+**Purpose**: Next-generation network scanning with AI capabilities
+
+**Key Features**:
+- AI-enhanced detection algorithms
+- Behavioral pattern analysis
+- Real-time vulnerability identification
+- Advanced service detection
+- Performance optimization
+
+**Main Classes**:
+```python
+class EnhancedNetworkScanner:
+    def __init__(self)
+    def ai_enhanced_scan(self, target)
+    def behavioral_analysis(self, scan_results)
+    def real_time_vulnerability_detection(self, target)
+```
+
+### 4. Modern GUI (`strikesuite/gui/enhanced_main_window.py`)
+
+**Purpose**: Modern, responsive GUI with advanced features
+
+**Key Features**:
+- Modern theme system
+- Responsive layout
+- Real-time metrics dashboard
+- Interactive charts
+- Accessibility features
+
+**Main Classes**:
+```python
+class ModernTheme:
+    def __init__(self)
+    def apply_theme(self, theme_name)
+    def generate_styles(self)
+
+class EnhancedMainWindow:
+    def __init__(self)
+    def create_dashboard(self)
+    def setup_navigation(self)
+```
+
+---
+
+## 🖥️ GUI Components
+
+### Main Window (`strikesuite/gui/main_window.py`)
+
+**Purpose**: Main application window with tabbed interface
+
+**Key Features**:
 - Tabbed interface for different modules
-- Status bar for operation feedback
-- Menu system for advanced options
-- Scrollable content areas
+- Full-screen and scroll functionality
+- Keyboard shortcuts
+- Status bar with progress indicators
+- Menu system
 
-### Individual Tabs
+**Main Classes**:
+```python
+class MainWindow(QMainWindow):
+    def __init__(self, plugin_manager=None)
+    def init_ui(self)
+    def toggle_fullscreen(self)
+    def scroll_down(self)
+    def scroll_up(self)
+```
 
-#### Network Tab (`gui/network_tab.py`)
-- Basic and advanced port scanning
-- Multiple scan type selection
+### Network Tab (`strikesuite/gui/network_tab.py`)
+
+**Purpose**: Network scanning interface
+
+**Key Features**:
+- Target input and validation
 - Port range configuration
-- OS and service detection options
+- Scan type selection
+- Real-time progress monitoring
+- Results display
 
-#### API Tab (`gui/api_tab.py`)
-- API endpoint testing
-- Advanced API security options
-- JWT analysis capabilities
-- Rate limiting testing
+### API Tab (`strikesuite/gui/api_tab.py`)
 
-#### Vulnerability Tab (`gui/vulnerability_tab.py`)
-- Comprehensive vulnerability scanning
-- Advanced scan depth options
-- Stealth mode operations
-- Custom payload configuration
+**Purpose**: API security testing interface
 
-#### Brute Force Tab (`gui/brute_force_tab.py`)
-- File selection for wordlists
-- Advanced attack techniques
-- Pattern matching options
-- Rate limit detection
+**Key Features**:
+- API endpoint configuration
+- Authentication testing
+- Rate limiting analysis
+- JWT security testing
+- Results visualization
 
-#### Exploitation Tab (`gui/exploitation_tab.py`)
-- Safe exploitation testing
-- Advanced payload generation
-- Evasion technique selection
-- Exploit chaining options
+### Vulnerability Tab (`strikesuite/gui/vulnerability_tab.py`)
 
-#### Post-Exploitation Tab (`gui/post_exploit_tab.py`)
-- System analysis options
-- Privilege escalation testing
-- Persistence analysis
-- Lateral movement detection
+**Purpose**: Vulnerability assessment interface
 
-#### Plugins Tab (`gui/plugins_tab.py`)
-- Plugin management interface
-- Advanced execution modes
-- Hot reload capabilities
-- Security sandboxing options
+**Key Features**:
+- Target configuration
+- Scan depth selection
+- CVE database integration
+- Vulnerability details
+- Remediation guidance
 
----
+### Reporting Tab (`strikesuite/gui/reporting_tab.py`)
 
-## CLI Interface
+**Purpose**: Report generation and management
 
-### Basic Usage
-
-```bash
-# Basic port scan
-python strikesuite_cli.py --target 192.168.1.1 --scan-type port
-
-# Advanced vulnerability scan
-python strikesuite_cli.py --target 192.168.1.1 --scan-type vuln --advanced --stealth
-
-# Comprehensive API testing
-python strikesuite_cli.py --target https://api.example.com --scan-type api --advanced --fuzzing
-```
-
-### Advanced Options
-
-```bash
-# Full advanced scan
-python strikesuite_cli.py --target 192.168.1.1 --advanced --stealth --depth comprehensive \
-  --os-detection --service-detection --vulnerability-scan \
-  --fuzzing --parameter-pollution --jwt-analysis \
-  --brute-force --wordlist custom.txt \
-  --exploitation --payload-generation --evasion-techniques \
-  --post-exploitation --privilege-escalation --persistence-analysis
-```
-
-### Output Options
-
-```bash
-# Generate reports
-python strikesuite_cli.py --target 192.168.1.1 --output results.json --format json
-python strikesuite_cli.py --target 192.168.1.1 --output report.pdf --format pdf
-```
+**Key Features**:
+- Report configuration
+- Multiple output formats
+- Template selection
+- Report generation
+- Export options
 
 ---
 
-## Advanced Features
+## 🗄️ Database System
 
-### 1. Stealth Mode Operations
-- Reduced network footprint
-- Timing-based evasion
-- Protocol-level obfuscation
-- Anti-detection techniques
+### Database Schema
 
-### 2. Advanced Scanning Techniques
-- OS fingerprinting
-- Service version detection
-- Vulnerability correlation
-- False positive reduction
+**Main Tables**:
+- `scans`: Scan history and results
+- `vulnerabilities`: Vulnerability database
+- `hosts`: Network host information
+- `services`: Service detection results
+- `cves`: CVE database entries
+- `assessment_results`: Assessment session data
 
-### 3. Plugin System
+### Database Utilities (`strikesuite/utils/db_utils.py`)
+
+**Purpose**: Database management and operations
+
+**Key Functions**:
+```python
+def init_db()
+def save_scan_results(scan_data)
+def get_vulnerability_info(cve_id)
+def save_assessment_results(results)
+def export_data(format="json")
+```
+
+### Assessment Results (`strikesuite/core/assessment_results.py`)
+
+**Purpose**: Data models for assessment results
+
+**Key Classes**:
+```python
+class AssessmentResultsManager:
+    def __init__(self)
+    def create_session(self, session_name)
+    def add_network_results(self, results)
+    def add_vulnerability_results(self, results)
+    def generate_report_data(self)
+```
+
+### Report Aggregator (`strikesuite/core/report_aggregator.py`)
+
+**Purpose**: Data aggregation for comprehensive reports
+
+**Key Classes**:
+```python
+class ReportDataAggregator:
+    def __init__(self)
+    def collect_network_data(self)
+    def collect_vulnerability_data(self)
+    def collect_api_data(self)
+    def generate_summary(self)
+```
+
+### Enhanced Reporter (`strikesuite/core/enhanced_reporter.py`)
+
+**Purpose**: Advanced report generation
+
+**Key Classes**:
+```python
+class EnhancedReportGenerator:
+    def __init__(self)
+    def generate_html_report(self, data)
+    def generate_pdf_report(self, data)
+    def generate_json_report(self, data)
+    def generate_xml_report(self, data)
+    def generate_csv_report(self, data)
+```
+
+---
+
+## 🔌 Plugin System
+
+### Plugin Manager (`strikesuite/core/plugin_manager.py`)
+
+**Purpose**: Dynamic plugin loading and management
+
+**Key Features**:
 - Dynamic plugin loading
 - Hot reloading capabilities
 - Security sandboxing
 - Performance monitoring
+- Dependency management
 
-### 4. Reporting Engine
-- Multiple output formats (PDF, HTML, JSON, XML)
-- Comprehensive vulnerability reports
-- Executive summaries
-- Technical details
-
-### 5. Database Integration
-- SQLite-based storage
-- Scan history tracking
-- Vulnerability database
-- Credential management
-
----
-
-## Installation & Setup
-
-### Prerequisites
-
-- Python 3.8 or higher
-- Windows 10/11 (primary platform)
-- 4GB RAM minimum (8GB recommended)
-- 2GB free disk space
-
-### Installation Steps
-
-1. **Clone the Repository**
-```bash
-git clone https://github.com/yourusername/strikesuite.git
-cd strikesuite
-```
-
-2. **Create Virtual Environment**
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-3. **Install Dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Initialize Database**
-```bash
-python -c "from utils.db_utils import init_db; init_db()"
-```
-
-5. **Test Installation**
-```bash
-python strikesuite_cli.py --test
-```
-
-### GUI Installation
-
-```bash
-# Install GUI dependencies
-pip install PyQt5
-
-# Run GUI application
-python strikesuite.py
-```
-
----
-
-## User Guide
-
-### Getting Started
-
-1. **Launch the Application**
-   - GUI: `python strikesuite.py`
-   - CLI: `python strikesuite_cli.py --help`
-
-2. **Configure Your Target**
-   - Enter target IP/hostname
-   - Select scan type
-   - Configure advanced options
-
-3. **Run the Scan**
-   - Click "Start Scan" (GUI) or run CLI command
-   - Monitor progress
-   - Review results
-
-4. **Generate Reports**
-   - Use the Reporting tab (GUI)
-   - Use `--output` option (CLI)
-
-### Best Practices
-
-1. **Always get permission** before testing
-2. **Use stealth mode** for sensitive environments
-3. **Start with basic scans** before advanced techniques
-4. **Review results carefully** for false positives
-5. **Generate comprehensive reports** for documentation
-
-### Common Use Cases
-
-#### Network Security Assessment
-```bash
-python strikesuite_cli.py --target 192.168.1.0/24 --scan-type port --advanced --os-detection
-```
-
-#### Web Application Testing
-```bash
-python strikesuite_cli.py --target https://example.com --scan-type vuln --advanced --stealth
-```
-
-#### API Security Testing
-```bash
-python strikesuite_cli.py --target https://api.example.com --scan-type api --advanced --fuzzing --jwt-analysis
-```
-
----
-
-## Developer Guide
-
-### Project Structure
-
-```
-strikesuite/
-├── core/                   # Core modules
-├── gui/                    # GUI components
-├── plugins/                # Plugin system
-├── utils/                  # Utility functions
-├── wordlists/              # Wordlist files
-├── reports/                # Generated reports
-├── logs/                   # Application logs
-├── requirements.txt        # Dependencies
-├── strikesuite.py         # GUI entry point
-├── strikesuite_cli.py     # CLI entry point
-└── README.md              # Project documentation
-```
-
-### Adding New Modules
-
-1. **Create Module File**
+**Main Classes**:
 ```python
-# core/new_module.py
-class NewModule:
-    def __init__(self, advanced_mode=False, stealth_mode=False):
-        self.advanced_mode = advanced_mode
-        self.stealth_mode = stealth_mode
-    
-    def advanced_function(self, target, options):
-        # Implementation
-        pass
+class PluginManager:
+    def __init__(self, plugins_dir="plugins")
+    def load_plugins(self)
+    def execute_plugin(self, plugin_name, target, options)
+    def get_plugin_info(self, plugin_name)
+    def reload_plugin(self, plugin_name)
 ```
 
-2. **Add GUI Tab**
+### Plugin Development
+
+**Plugin Template**:
 ```python
-# gui/new_module_tab.py
-class NewModuleTab(QWidget):
+class MyPlugin:
     def __init__(self):
-        super().__init__()
-        self.init_ui()
-    
-    def init_ui(self):
-        # GUI implementation
-        pass
-```
-
-3. **Update Main Window**
-```python
-# gui/main_window.py
-from gui.new_module_tab import NewModuleTab
-
-# Add tab to main window
-self.new_module_tab = NewModuleTab()
-self.tab_widget.addTab(self.new_module_tab, "New Module")
-```
-
-### Creating Plugins
-
-1. **Plugin Template**
-```python
-# plugins/example_plugin.py
-class ExamplePlugin:
-    def __init__(self):
-        self.name = "Example Plugin"
+        self.name = "My Plugin"
         self.version = "1.0"
-        self.description = "Example plugin for StrikeSuite"
+        self.description = "Custom plugin description"
     
     def execute(self, target, options):
         # Plugin implementation
@@ -547,191 +547,400 @@ class ExamplePlugin:
         }
 ```
 
-2. **Register Plugin**
+### Available Plugins
+
+1. **Advanced API Tester** (`plugins/advanced_api_tester.py`)
+2. **Directory Brute Force** (`plugins/directory_bruteforce.py`)
+3. **SSL Analyzer** (`plugins/ssl_analyzer.py`)
+4. **Subdomain Enumeration** (`plugins/subdomain_enum.py`)
+5. **WordPress Scanner** (`plugins/wordpress_scanner.py`)
+
+---
+
+## 🛡️ Security Features
+
+### Built-in Safeguards
+
+1. **Safe Testing Environment**: All exploitation is performed in safe mode
+2. **Input Validation**: Comprehensive input sanitization
+3. **Rate Limiting**: Built-in rate limiting to prevent DoS
+4. **Error Handling**: Robust error handling and recovery
+5. **Permission Checks**: Built-in permission verification
+
+### Security Best Practices
+
+1. **Always get permission** before testing any system
+2. **Use stealth mode** for sensitive environments
+3. **Review results carefully** for false positives
+4. **Generate comprehensive reports** for documentation
+5. **Follow responsible disclosure** practices
+
+### Ethical Guidelines
+
+- Only test systems you own or have explicit permission to test
+- Respect rate limits and system resources
+- Report vulnerabilities responsibly
+- Follow applicable laws and regulations
+- Maintain confidentiality of test results
+
+---
+
+## ⚡ Performance Optimization
+
+### Performance Monitoring
+
+**Real-time Metrics**:
+- CPU usage monitoring
+- Memory usage tracking
+- Network performance analysis
+- Database performance metrics
+- Task execution times
+
+### Optimization Techniques
+
+1. **Multi-threading**: Concurrent operations for faster execution
+2. **Caching**: Intelligent caching for repeated operations
+3. **Resource Pooling**: Dynamic resource allocation
+4. **Batch Processing**: Efficient batch processing of similar tasks
+5. **Memory Management**: Advanced memory usage optimization
+
+### Performance Settings
+
 ```python
-# plugins/__init__.py
-from .example_plugin import ExamplePlugin
-
-PLUGINS = [ExamplePlugin]
-```
-
-### Testing
-
-```bash
-# Run unit tests
-python -m pytest tests/
-
-# Run integration tests
-python test_advanced_integration.py
-
-# Test specific modules
-python -c "from core.scanner import NetworkScanner; print('Scanner OK')"
+# Performance configuration
+PERFORMANCE_SETTINGS = {
+    "max_threads": 200,
+    "memory_limit": "1GB",
+    "cache_size": "100MB",
+    "batch_size": 1000,
+    "timeout": 30
+}
 ```
 
 ---
 
-## API Reference
+## 📦 Installation & Setup
 
-### Core Module APIs
+### Prerequisites
 
-#### NetworkScanner
-```python
-class NetworkScanner:
-    def __init__(self):
-        pass
-    
-    def advanced_port_scan(self, target, options):
-        """
-        Advanced port scanning with multiple techniques
-        
-        Args:
-            target (str): Target IP or hostname
-            options (dict): Scan configuration options
-            
-        Returns:
-            dict: Scan results with open ports, services, and vulnerabilities
-        """
+- **Python**: 3.8 or higher
+- **Operating System**: Windows 10/11 (primary), Linux, macOS
+- **Memory**: 4GB RAM minimum (8GB recommended)
+- **Storage**: 2GB free disk space
+- **Network**: Internet connection for updates and threat feeds
+
+### Installation Steps
+
+1. **Clone Repository**:
+```bash
+git clone https://github.com/yourusername/strikesuite.git
+cd strikesuite
 ```
 
-#### VulnerabilityScanner
+2. **Create Virtual Environment**:
+```bash
+python -m venv venv
+venv\Scripts\activate  # Windows
+# source venv/bin/activate  # Linux/Mac
+```
+
+3. **Install Dependencies**:
+```bash
+pip install -r requirements.txt
+```
+
+4. **Initialize Database**:
+```bash
+python -c "from strikesuite.utils.db_utils import init_db; init_db()"
+```
+
+5. **Test Installation**:
+```bash
+python -c "import strikesuite; print('Installation successful')"
+```
+
+### GUI Installation
+
+```bash
+# Install GUI dependencies
+pip install PyQt5
+
+# Run GUI application
+python strikesuite.py
+```
+
+### CLI Installation
+
+```bash
+# Test CLI
+python strikesuite_cli.py --test
+
+# Run basic scan
+python strikesuite_cli.py --target 192.168.1.1
+```
+
+---
+
+## 📖 Usage Guide
+
+### GUI Mode
+
+**Starting the Application**:
+```bash
+python strikesuite.py
+```
+
+**Main Interface**:
+- **Network Tab**: Configure and run network scans
+- **API Tab**: Test API security
+- **Vulnerability Tab**: Run vulnerability assessments
+- **Brute Force Tab**: Configure brute force attacks
+- **Exploitation Tab**: Safe exploitation testing
+- **Post-Exploitation Tab**: Post-exploitation analysis
+- **Plugins Tab**: Manage and execute plugins
+- **Reporting Tab**: Generate and manage reports
+
+### CLI Mode
+
+**Basic Usage**:
+```bash
+# Network scan
+python strikesuite_cli.py --target 192.168.1.1
+
+# Advanced scan
+python strikesuite_cli.py --target 192.168.1.0/24 --advanced --stealth
+
+# Vulnerability scan
+python strikesuite_cli.py --target https://example.com --scan-type vuln
+
+# API testing
+python strikesuite_cli.py --target https://api.example.com --scan-type api
+
+# Generate report
+python strikesuite_cli.py --target 192.168.1.1 --output report.pdf --format pdf
+```
+
+**Advanced Options**:
+```bash
+# Stealth mode
+python strikesuite_cli.py --target 192.168.1.1 --stealth --depth comprehensive
+
+# Custom ports
+python strikesuite_cli.py --target 192.168.1.1 --ports 22,80,443,8080
+
+# Brute force
+python strikesuite_cli.py --target 192.168.1.1 --brute-force --wordlist passwords.txt
+
+# Exploitation
+python strikesuite_cli.py --target https://example.com --exploitation --safe-mode
+```
+
+---
+
+## 📚 API Reference
+
+### Core API
+
+#### NetworkScanner
+
 ```python
-class VulnerabilityScanner:
-    def __init__(self, scan_depth='standard', stealth_mode=False):
-        pass
-    
-    def advanced_vulnerability_scan(self, targets, options):
-        """
-        Advanced vulnerability scanning
-        
-        Args:
-            targets (list): List of target dictionaries
-            options (dict): Scan configuration options
-            
-        Returns:
-            dict: Vulnerability scan results
-        """
+class NetworkScanner:
+    def __init__(self, max_threads=200, timeout=0.5, scan_type="tcp")
+    def scan_network(self, target, ports=None, scan_type="tcp")
+    def scan_ports(self, target, ports, scan_type="tcp")
+    def stealth_scan(self, target, ports=None)
+    def os_fingerprint(self, target)
+    def service_detection(self, target, port)
 ```
 
 #### APITester
+
 ```python
 class APITester:
-    def __init__(self, base_url, advanced_mode=False, stealth_mode=False):
-        pass
-    
-    def advanced_api_test(self, endpoints, options):
-        """
-        Advanced API security testing
-        
-        Args:
-            endpoints (list): List of API endpoints to test
-            options (dict): Test configuration options
-            
-        Returns:
-            dict: API test results
-        """
+    def __init__(self, base_url, headers=None, timeout=10)
+    def test_authentication(self, endpoint, method="GET")
+    def test_authorization(self, endpoint, method="GET")
+    def test_input_validation(self, endpoint, method="POST")
+    def test_rate_limiting(self, endpoint, method="GET")
+    def test_jwt_security(self, token)
 ```
 
-### GUI Component APIs
+#### VulnerabilityScanner
 
-#### MainWindow
 ```python
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.init_ui()
-    
-    def init_ui(self):
-        """Initialize the main window interface"""
-        pass
+class VulnerabilityScanner:
+    def __init__(self, scan_depth="standard", stealth_mode=False)
+    def scan_vulnerabilities(self, target, scan_type="comprehensive")
+    def check_ssl_security(self, target, port=443)
+    def scan_web_application(self, target)
+    def lookup_cve(self, service, version)
 ```
 
-#### Individual Tabs
+### Enhanced API
+
+#### ThreatIntelligenceEngine
+
 ```python
-class NetworkTab(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.init_ui()
-    
-    def start_advanced_scan(self):
-        """Start advanced network scan"""
-        pass
-    
-    def advanced_scan_finished(self, results):
-        """Handle advanced scan completion"""
-        pass
+class ThreatIntelligenceEngine:
+    def __init__(self)
+    def analyze_ip_reputation(self, ip_address)
+    def analyze_domain_reputation(self, domain)
+    def analyze_file_hash(self, file_hash)
+    def generate_threat_report(self, indicators)
+```
+
+#### PerformanceMonitor
+
+```python
+class PerformanceMonitor:
+    def __init__(self)
+    def start_monitoring(self, interval=1.0)
+    def get_metrics(self)
+    def optimize_performance(self)
 ```
 
 ---
 
-## Troubleshooting
+## 👨‍💻 Developer Guide
+
+### Development Setup
+
+1. **Clone Repository**:
+```bash
+git clone https://github.com/yourusername/strikesuite.git
+cd strikesuite
+```
+
+2. **Create Development Environment**:
+```bash
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+3. **Install Development Tools**:
+```bash
+pip install pytest black flake8 mypy
+```
+
+### Code Style
+
+- **PEP 8**: Follow Python PEP 8 style guide
+- **Docstrings**: Add comprehensive docstrings to all functions
+- **Type Hints**: Use type hints for better code clarity
+- **Error Handling**: Implement robust error handling
+- **Testing**: Write tests for all new features
+
+### Contributing
+
+1. **Fork Repository**: Fork the repository on GitHub
+2. **Create Branch**: Create a feature branch
+3. **Make Changes**: Implement your changes
+4. **Add Tests**: Write tests for new functionality
+5. **Submit PR**: Submit a pull request
+
+### Plugin Development
+
+**Creating a Plugin**:
+```python
+# plugins/my_plugin.py
+class MyPlugin:
+    def __init__(self):
+        self.name = "My Plugin"
+        self.version = "1.0"
+        self.description = "Custom plugin description"
+    
+    def execute(self, target, options):
+        # Plugin implementation
+        return {"result": "success"}
+    
+    def get_info(self):
+        return {
+            "name": self.name,
+            "version": self.version,
+            "description": self.description
+        }
+```
+
+---
+
+## 🧪 Testing Framework
+
+### Test Suite
+
+**Enhanced Test Suite** (`tests/enhanced_test_suite.py`):
+- **28 test cases** covering all major functionality
+- **100% pass rate** for all tests
+- **Integration testing** for end-to-end functionality
+- **Performance testing** for optimization validation
+- **Error handling testing** for robustness
+
+### Running Tests
+
+```bash
+# Run all tests
+python tests/enhanced_test_suite.py
+
+# Run specific test categories
+python -m pytest tests/test_scanner.py
+python -m pytest tests/test_api_tester.py
+python -m pytest tests/test_vulnerability.py
+```
+
+### Test Categories
+
+1. **Unit Tests**: Individual component testing
+2. **Integration Tests**: End-to-end functionality testing
+3. **Performance Tests**: Performance optimization validation
+4. **Error Handling Tests**: Robustness and error recovery testing
+5. **Data Validation Tests**: Input validation and data integrity testing
+
+---
+
+## 🚀 Deployment
+
+### Deployment Options
+
+1. **Standalone**: Single-machine deployment
+2. **Distributed**: Multi-machine distributed deployment
+3. **Cloud**: Cloud-based deployment
+4. **Container**: Docker container deployment
+5. **Kubernetes**: Kubernetes orchestration
+
+### Docker Deployment
+
+```dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+RUN python -c "from strikesuite.utils.db_utils import init_db; init_db()"
+
+CMD ["python", "strikesuite.py"]
+```
+
+### Production Considerations
+
+- **Security**: Implement proper security measures
+- **Performance**: Optimize for production workloads
+- **Monitoring**: Set up comprehensive monitoring
+- **Backup**: Implement backup strategies
+- **Updates**: Plan for regular updates
+
+---
+
+## 🔧 Troubleshooting
 
 ### Common Issues
 
-#### 1. Import Errors
-**Problem**: `ModuleNotFoundError` when running the application
-
-**Solution**:
-```bash
-# Ensure all dependencies are installed
-pip install -r requirements.txt
-
-# Check Python path
-python -c "import sys; print(sys.path)"
-```
-
-#### 2. GUI Not Starting
-**Problem**: PyQt5 not found or GUI crashes
-
-**Solution**:
-```bash
-# Install PyQt5
-pip install PyQt5
-
-# Test GUI components
-python -c "from PyQt5.QtWidgets import QApplication; print('PyQt5 OK')"
-```
-
-#### 3. Database Issues
-**Problem**: Database initialization fails
-
-**Solution**:
-```bash
-# Initialize database manually
-python -c "from utils.db_utils import init_db; init_db()"
-
-# Check database file
-ls -la database/
-```
-
-#### 4. Permission Errors
-**Problem**: Cannot write to directories or files
-
-**Solution**:
-```bash
-# Check file permissions
-ls -la
-
-# Fix permissions if needed
-chmod 755 strikesuite.py
-```
-
-### Performance Issues
-
-#### 1. Slow Scans
-- Reduce thread count
-- Use stealth mode
-- Limit port ranges
-- Disable advanced features
-
-#### 2. Memory Usage
-- Close unused tabs
-- Restart application periodically
-- Monitor system resources
-
-#### 3. Network Timeouts
-- Increase timeout values
-- Check network connectivity
-- Use different scan techniques
+1. **Import Errors**: Check Python path and dependencies
+2. **Database Errors**: Verify database initialization
+3. **Permission Errors**: Check file permissions
+4. **Network Issues**: Verify network connectivity
+5. **Memory Issues**: Monitor memory usage
 
 ### Debug Mode
 
@@ -740,67 +949,136 @@ chmod 755 strikesuite.py
 export STRIKESUITE_DEBUG=1
 python strikesuite.py
 
-# Check logs
-tail -f logs/application.log
+# Verbose output
+python strikesuite_cli.py --target 192.168.1.1 --verbose
 ```
+
+### Log Files
+
+- **Application Logs**: `logs/application.log`
+- **Error Logs**: `logs/error_logs/`
+- **Scan Logs**: `logs/scan_logs/`
+- **API Logs**: `logs/api_logs/`
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 ### How to Contribute
 
-1. **Fork the Repository**
-2. **Create a Feature Branch**
-3. **Make Your Changes**
-4. **Add Tests**
-5. **Submit a Pull Request**
+1. **Fork Repository**: Fork the repository on GitHub
+2. **Create Branch**: Create a feature branch
+3. **Make Changes**: Implement your changes
+4. **Add Tests**: Write tests for new features
+5. **Submit PR**: Submit a pull request
 
 ### Development Guidelines
 
-1. **Code Style**: Follow PEP 8
-2. **Documentation**: Add docstrings to all functions
-3. **Testing**: Write tests for new features
-4. **Security**: Ensure safe testing practices
+- Follow PEP 8 style guide
+- Add comprehensive docstrings
+- Write tests for new features
+- Ensure safe testing practices
+- Update documentation
 
-### Reporting Issues
+### Code Review Process
 
-1. **Check Existing Issues**
-2. **Provide Detailed Information**
-3. **Include Log Files**
-4. **Describe Steps to Reproduce**
-
-### Feature Requests
-
-1. **Check Roadmap**
-2. **Describe Use Case**
-3. **Provide Examples**
-4. **Consider Implementation**
+1. **Automated Tests**: All tests must pass
+2. **Code Review**: Peer review of changes
+3. **Security Review**: Security implications review
+4. **Documentation**: Update relevant documentation
+5. **Integration**: Integration testing
 
 ---
 
-## License
+## 🗺️ Roadmap
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+### Version 1.1 (Upcoming)
 
-## Acknowledgments
+- [ ] Enhanced plugin system
+- [ ] Additional scan types
+- [ ] Improved reporting
+- [ ] Performance optimizations
+- [ ] Mobile application testing
 
-- OWASP for security testing guidelines
-- Python community for excellent libraries
-- Security researchers for vulnerability databases
-- Open source contributors
+### Version 1.2 (Future)
+
+- [ ] Machine learning integration
+- [ ] Advanced evasion techniques
+- [ ] Cloud platform support
+- [ ] Real-time collaboration
+- [ ] Advanced analytics
+
+### Version 2.0 (Long-term)
+
+- [ ] Distributed scanning
+- [ ] AI-powered threat detection
+- [ ] Enterprise features
+- [ ] Advanced automation
+- [ ] Quantum-resistant security
 
 ---
 
-## Contact
+## 📞 Support
 
-- **Project Repository**: https://github.com/yourusername/strikesuite
-- **Documentation**: https://strikesuite.readthedocs.io
-- **Issues**: https://github.com/yourusername/strikesuite/issues
-- **Email**: contact@strikesuite.com
+### Documentation
+
+- **Project Book**: This comprehensive documentation
+- **Quick Start Guide**: `docs/QUICK_START_GUIDE.md`
+- **API Reference**: `docs/api_reference.md`
+- **Developer Guide**: `docs/DEVELOPER_GUIDE.md`
+- **User Guide**: `docs/user_guide.md`
+
+### Community
+
+- **GitHub Issues**: [Report Issues](https://github.com/yourusername/strikesuite/issues)
+- **GitHub Discussions**: [Community Discussions](https://github.com/yourusername/strikesuite/discussions)
+- **Email Support**: contact@strikesuite.com
+
+### Professional Support
+
+- **Training**: Comprehensive training programs
+- **Consulting**: Professional consulting services
+- **Custom Development**: Custom development services
+- **Enterprise Support**: Enterprise support options
 
 ---
 
-*This project book is maintained and updated regularly. For the latest version, please visit the project repository.*
+## 📄 License
 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+---
+
+## 🙏 Acknowledgments
+
+- **OWASP** for security testing guidelines
+- **Python community** for excellent libraries
+- **Security researchers** for vulnerability databases
+- **Open source contributors** for inspiration
+- **StrikeSuite community** for feedback and contributions
+
+---
+
+## ⚠️ Disclaimer
+
+**This tool is for authorized security testing only. Always ensure you have proper permission before testing any system. The authors are not responsible for any misuse of this tool.**
+
+---
+
+<div align="center">
+
+**🛡️ StrikeSuite - Advanced Cybersecurity Testing Framework**
+
+*Built with ❤️ for the cybersecurity community*
+
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/strikesuite?style=social)](https://github.com/yourusername/strikesuite)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/strikesuite?style=social)](https://github.com/yourusername/strikesuite)
+[![GitHub watchers](https://img.shields.io/github/watchers/yourusername/strikesuite?style=social)](https://github.com/yourusername/strikesuite)
+
+</div>
+
+---
+
+*Last Updated: December 2024*
+*Version: 1.0.0*
+*Documentation Version: 1.0*

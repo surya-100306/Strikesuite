@@ -1,0 +1,8 @@
+{
+  "default_format": "html",
+  "include_screenshots": true,
+  "include_logs": true,
+  "template_dir": "reports/templates",
+  "output_dir": "reports/generated",
+  "auto_generate": false
+}

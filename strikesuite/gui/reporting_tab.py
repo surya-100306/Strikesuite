@@ -25,8 +25,8 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 try:
-    from core.reporter import ReportGenerator
-    from utils.db_utils import get_scan_history, get_vulnerability_data
+    from strikesuite.core.reporter import ReportGenerator
+    from strikesuite.utils.db_utils import get_scan_history, get_vulnerability_data
 except ImportError as e:
     print(f"Warning: Could not import some modules: {e}")
 

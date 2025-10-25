@@ -887,14 +887,15 @@ class ReportGenerator:
             
             # Generate report based on format
             format_type = config.get('format', 'pdf').lower()
+            output_path = config.get('output_path', None)
             
             if format_type == 'pdf':
-                return self.generate_pdf_report(report_data)
+                return self.generate_pdf_report(report_data, output_path)
             elif format_type == 'html':
-                return self.generate_html_report(report_data)
+                return self.generate_html_report(report_data, output_path)
             else:
                 # Default to PDF
-                return self.generate_pdf_report(report_data)
+                return self.generate_pdf_report(report_data, output_path)
                 
         except Exception as e:
             self.logger.error(f"Failed to generate report: {e}")

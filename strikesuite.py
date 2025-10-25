@@ -73,7 +73,7 @@ def main():
             splash.showMessage("Setting up database...", Qt.AlignBottom | Qt.AlignCenter)
             app.processEvents()
             
-            from utils.db_utils import init_db
+            from strikesuite.utils.db_utils import init_db
             init_db()
             print("[OK] Database initialized")
             
@@ -81,7 +81,7 @@ def main():
             splash.showMessage("Loading plugins...", Qt.AlignBottom | Qt.AlignCenter)
             app.processEvents()
             
-            from core.plugin_manager import PluginManager
+            from strikesuite.core.plugin_manager import PluginManager
             plugin_manager = PluginManager()
             plugins = plugin_manager.load_plugins()
             print(f"[OK] Loaded {len(plugins)} plugins")
@@ -90,7 +90,7 @@ def main():
             splash.showMessage("Loading interface...", Qt.AlignBottom | Qt.AlignCenter)
             app.processEvents()
             
-            from gui.main_window import MainWindow
+            from strikesuite.gui.main_window import MainWindow
             
             # Create and show main window
             splash.showMessage("Starting application...", Qt.AlignBottom | Qt.AlignCenter)

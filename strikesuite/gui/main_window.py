@@ -22,42 +22,42 @@ sys.path.insert(0, str(project_root))
 
 # Import core modules with error handling
 try:
-    from core.scanner import NetworkScanner
+    from strikesuite.core.scanner import NetworkScanner
 except ImportError:
     NetworkScanner = None
 
 try:
-    from core.api_tester import APITester
+    from strikesuite.core.api_tester import APITester
 except ImportError:
     APITester = None
 
 try:
-    from core.vulnerability_scanner import VulnerabilityScanner
+    from strikesuite.core.vulnerability_scanner import VulnerabilityScanner
 except ImportError:
     VulnerabilityScanner = None
 
 try:
-    from core.exploit_module import ExploitModule
+    from strikesuite.core.exploit_module import ExploitModule
 except ImportError:
     ExploitModule = None
 
 try:
-    from core.brute_forcer import BruteForcer
+    from strikesuite.core.brute_forcer import BruteForcer
 except ImportError:
     BruteForcer = None
 
 try:
-    from core.post_exploitation import PostExploitation
+    from strikesuite.core.post_exploitation import PostExploitation
 except ImportError:
     PostExploitation = None
 
 try:
-    from core.reporter import ReportGenerator
+    from strikesuite.core.reporter import ReportGenerator
 except ImportError:
     ReportGenerator = None
 
 try:
-    from utils.db_utils import init_db
+    from strikesuite.utils.db_utils import init_db
 except ImportError:
     init_db = None
 

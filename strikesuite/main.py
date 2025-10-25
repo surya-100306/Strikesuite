@@ -73,14 +73,15 @@ def main():
         logger.info("StrikeSuite starting...")
         
         # Initialize database
-        from strikesuite.utils import init_db
+        from strikesuite.utils.db_utils import init_db
         init_db()
         logger.info("Database initialized")
         
         # Load plugins
-        from strikesuite.core import PluginManager
+        from strikesuite.core.plugin_manager import PluginManager
         plugin_manager = PluginManager()
-        logger.info(f"Loaded {len(plugin_manager.plugins)} plugins")
+        plugins = plugin_manager.load_plugins()
+        logger.info(f"Loaded {len(plugins)} plugins")
         
         # Check for GUI mode
         if len(sys.argv) > 1 and sys.argv[1] == '--cli':
@@ -90,7 +91,7 @@ def main():
         else:
             # GUI mode
             from PyQt5.QtWidgets import QApplication
-            from strikesuite.gui import MainWindow
+            from strikesuite.gui.main_window import MainWindow
             
             app = QApplication(sys.argv)
             app.setApplicationName("StrikeSuite")

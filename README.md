@@ -20,10 +20,17 @@ venv\Scripts\activate  # Windows
 # source venv/bin/activate  # Linux/Mac
 
 # Install dependencies
+# Option 1: Minimal installation (recommended)
+pip install -r requirements-minimal.txt
+
+# Option 2: Full installation (may have issues with some packages)
 pip install -r requirements.txt
 
+# Option 3: Install optional features separately
+pip install -r requirements-optional.txt
+
 # Test installation
-python strikesuite_cli.py --test
+python3 test_strikesuite.py
 
 # Launch GUI
 python strikesuite.py
@@ -94,56 +101,74 @@ python strikesuite.py
 - Easy configuration management
 
 ### CLI Mode
-```bash
-# Basic scan
-python strikesuite_cli.py --target 192.168.1.1
 
-# Advanced scan
-python strikesuite_cli.py --target 192.168.1.1 --advanced --stealth --depth comprehensive
+**Multiple CLI Access Methods:**
+
+```bash
+# Method 1: Direct CLI script
+python3 strikesuite_cli.py --help
+
+# Method 2: Shell script (Linux/Mac)
+./strikesuite-cli.sh --help
+
+# Method 3: Batch file (Windows)
+strikesuite-cli.bat --help
+
+# Method 4: Module execution
+python3 -m strikesuite.main --cli --help
+```
+
+**Basic Usage:**
+```bash
+# Basic network scan
+python3 strikesuite_cli.py scan --target 192.168.1.1 --type network
+
+# Port scan
+python3 strikesuite_cli.py scan --target 192.168.1.1 --type ports --ports 22,80,443
+
+# API testing
+python3 strikesuite_cli.py test --target https://api.example.com --type api
+
+# Vulnerability testing
+python3 strikesuite_cli.py test --target https://example.com --type vulnerability
+
+# Generate report
+python3 strikesuite_cli.py report --output report.pdf --format PDF
 ```
 
 ## 📋 Usage Examples
 
 ### Network Security Assessment
 ```bash
-# Comprehensive network scan
-python strikesuite_cli.py --target 192.168.1.0/24 --scan-type port --advanced --os-detection --service-detection
+# Network discovery scan
+python3 strikesuite_cli.py scan --target 192.168.1.0/24 --type network
 
-# Stealth scan
-python strikesuite_cli.py --target 192.168.1.1 --scan-type port --stealth --ports 22,80,443,8080
+# Port scan with specific ports
+python3 strikesuite_cli.py scan --target 192.168.1.1 --type ports --ports 22,80,443,8080
+
+# Port scan with options
+python3 strikesuite_cli.py scan --target 192.168.1.1 --type ports --ports 1-1000 --options "stealth,os-detection"
 ```
 
 ### Web Application Testing
 ```bash
-# Vulnerability scan
-python strikesuite_cli.py --target https://example.com --scan-type vuln --advanced --stealth
+# Vulnerability testing
+python3 strikesuite_cli.py test --target https://example.com --type vulnerability
 
 # API security testing
-python strikesuite_cli.py --target https://api.example.com --scan-type api --advanced --fuzzing --jwt-analysis
-```
-
-### Brute Force Attacks
-```bash
-# Advanced brute force
-python strikesuite_cli.py --target 192.168.1.1 --brute-force --advanced --wordlist custom.txt --username-list users.txt
-```
-
-### Exploitation Testing
-```bash
-# Safe exploitation testing
-python strikesuite_cli.py --target https://example.com --exploitation --advanced --payload-generation --evasion-techniques
-```
-
-### Post-Exploitation Analysis
-```bash
-# System analysis
-python strikesuite_cli.py --target 192.168.1.1 --post-exploitation --advanced --privilege-escalation --persistence-analysis
+python3 strikesuite_cli.py test --target https://api.example.com --type api
 ```
 
 ### Report Generation
 ```bash
-# Generate comprehensive report
-python strikesuite_cli.py --target 192.168.1.1 --scan-type all --advanced --output report.pdf --format pdf
+# Generate PDF report
+python3 strikesuite_cli.py report --output security_report.pdf --format PDF --title "Security Assessment Report"
+
+# Generate HTML report
+python3 strikesuite_cli.py report --output report.html --format HTML --title "Network Scan Results"
+
+# Generate JSON report
+python3 strikesuite_cli.py report --output data.json --format JSON --title "Scan Data Export"
 ```
 
 ## 🏗️ Architecture
@@ -214,7 +239,7 @@ python -c "from utils.db_utils import init_db; init_db()"
 
 5. **Test Installation**
 ```bash
-python strikesuite_cli.py --test
+python3 test_strikesuite.py
 ```
 
 ### GUI Installation
@@ -286,11 +311,63 @@ python -c "from gui.main_window import MainWindow; print('GUI OK')"
 
 ### Test Installation
 ```bash
-# Test CLI
-python strikesuite_cli.py --test
+# Test all components
+python3 test_strikesuite.py
 
 # Test GUI
-python strikesuite.py
+python3 strikesuite.py
+```
+
+## 🔧 Troubleshooting
+
+### Installation Issues
+
+**Problem**: `python-zmap` or `python-masscan` not found
+```bash
+# Solution: Use minimal requirements instead
+pip install -r requirements-minimal.txt
+```
+
+**Problem**: `externally-managed-environment` error
+```bash
+# Solution: Use virtual environment
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+# or
+venv\Scripts\activate  # Windows
+pip install -r requirements-minimal.txt
+```
+
+**Problem**: PyQt5 installation fails
+```bash
+# Solution: Install system dependencies first (Ubuntu/Debian)
+sudo apt-get install python3-pyqt5 python3-pyqt5-dev
+# Then install minimal requirements
+pip install -r requirements-minimal.txt
+```
+
+**Problem**: nmap not working
+```bash
+# Solution: Install nmap system package
+sudo apt-get install nmap  # Ubuntu/Debian
+# or
+sudo yum install nmap  # CentOS/RHEL
+```
+
+### Runtime Issues
+
+**Problem**: "scapy not available" warnings
+- This is normal - scapy is optional for advanced features
+- Core functionality works without it
+
+**Problem**: "ReportLab not available" warnings  
+- This is normal - PDF generation is optional
+- HTML reports still work
+
+**Problem**: GUI won't start
+```bash
+# Test CLI mode instead
+python3 strikesuite_cli.py --help
 ```
 
 ## 🔌 Plugin Development

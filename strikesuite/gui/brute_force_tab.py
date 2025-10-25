@@ -11,12 +11,16 @@ from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
                              QFileDialog, QListWidget, QListWidgetItem, QTabWidget)
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 import time
+import os
 
 # Import core modules
 import sys
 from pathlib import Path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
+
+# Import single credential test thread
+from .single_credential_thread import SingleCredentialTestThread
 
 class BruteForceTab(QWidget):
     """Brute force testing tab widget"""
@@ -150,6 +154,53 @@ class BruteForceTab(QWidget):
         password_layout.addWidget(self.password_input)
         creds_layout.addLayout(password_layout)
         
+        # Add credential button
+        add_credential_layout = QHBoxLayout()
+        self.add_credential_btn = QPushButton("➕ Add Credential")
+        self.add_credential_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #27ae60;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                font-size: 12px;
+                font-weight: bold;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #229954;
+            }
+            QPushButton:pressed {
+                background-color: #1e8449;
+            }
+        """)
+        self.add_credential_btn.clicked.connect(self.add_credential)
+        add_credential_layout.addWidget(self.add_credential_btn)
+        
+        self.test_credential_btn = QPushButton("🧪 Test Single Credential")
+        self.test_credential_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #3498db;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                font-size: 12px;
+                font-weight: bold;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #2980b9;
+            }
+            QPushButton:pressed {
+                background-color: #21618c;
+            }
+        """)
+        self.test_credential_btn.clicked.connect(self.test_single_credential)
+        add_credential_layout.addWidget(self.test_credential_btn)
+        
+        add_credential_layout.addStretch()
+        creds_layout.addLayout(add_credential_layout)
+        
         # Use wordlists
         self.use_wordlists_check = QCheckBox("Use built-in wordlists")
         self.use_wordlists_check.setChecked(True)
@@ -168,7 +219,24 @@ class BruteForceTab(QWidget):
         self.username_file_input.setPlaceholderText("Select username wordlist file...")
         username_file_layout.addWidget(self.username_file_input)
         
-        self.username_file_btn = QPushButton("Browse")
+        self.username_file_btn = QPushButton("📁 Select Username File")
+        self.username_file_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #3498db;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                font-size: 12px;
+                font-weight: bold;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #2980b9;
+            }
+            QPushButton:pressed {
+                background-color: #21618c;
+            }
+        """)
         self.username_file_btn.clicked.connect(self.select_username_file)
         username_file_layout.addWidget(self.username_file_btn)
         
@@ -183,11 +251,29 @@ class BruteForceTab(QWidget):
         self.password_file_input.setPlaceholderText("Select password wordlist file...")
         password_file_layout.addWidget(self.password_file_input)
         
-        self.password_file_btn = QPushButton("Browse")
+        self.password_file_btn = QPushButton("📁 Select Password File")
+        self.password_file_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #e74c3c;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                font-size: 12px;
+                font-weight: bold;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #c0392b;
+            }
+            QPushButton:pressed {
+                background-color: #a93226;
+            }
+        """)
         self.password_file_btn.clicked.connect(self.select_password_file)
         password_file_layout.addWidget(self.password_file_btn)
         
         file_layout.addLayout(password_file_layout)
+        
         
         # Custom wordlist files
         custom_files_layout = QHBoxLayout()
@@ -201,6 +287,28 @@ class BruteForceTab(QWidget):
         self.clear_files_btn = QPushButton("Clear All")
         self.clear_files_btn.clicked.connect(self.clear_custom_files)
         custom_files_layout.addWidget(self.clear_files_btn)
+        
+        # Debug button for testing file selection
+        self.debug_files_btn = QPushButton("🐛 Debug Files")
+        self.debug_files_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #9b59b6;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                font-size: 12px;
+                font-weight: bold;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #8e44ad;
+            }
+            QPushButton:pressed {
+                background-color: #7d3c98;
+            }
+        """)
+        self.debug_files_btn.clicked.connect(self.debug_file_selection)
+        custom_files_layout.addWidget(self.debug_files_btn)
         
         file_layout.addLayout(custom_files_layout)
         
@@ -1039,28 +1147,138 @@ class BruteForceTab(QWidget):
         self.results_text.append("Brute force stopped by user")
     
     def select_username_file(self):
-        """Select username wordlist file"""
-        file_path, _ = QFileDialog.getOpenFileName(
-            self, 
-            "Select Username Wordlist", 
-            "", 
-            "Text Files (*.txt);;All Files (*)"
-        )
-        if file_path:
-            self.username_file_input.setText(file_path)
-            self.add_file_to_list(file_path, "Username")
+        """Select username wordlist file with debugging"""
+        try:
+            self.results_text.append("🔍 Opening username file selection dialog...")
+            
+            file_path, _ = QFileDialog.getOpenFileName(
+                self, 
+                "Select Username Wordlist", 
+                "", 
+                "Text Files (*.txt);;All Files (*)"
+            )
+            
+            if file_path:
+                self.username_file_input.setText(file_path)
+                self.add_file_to_list(file_path, "Username")
+                
+                # Debug: Show file info
+                import os
+                if os.path.exists(file_path):
+                    file_size = os.path.getsize(file_path)
+                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        lines = f.readlines()
+                        line_count = len([line for line in lines if line.strip()])
+                    
+                    self.results_text.append(f"✅ Username file selected: {file_path}")
+                    self.results_text.append(f"📊 File size: {file_size} bytes")
+                    self.results_text.append(f"📊 Usernames count: {line_count}")
+                    self.results_text.append(f"📋 First few usernames: {[line.strip() for line in lines[:3] if line.strip()]}")
+                else:
+                    self.results_text.append(f"❌ File not found: {file_path}")
+            else:
+                self.results_text.append("❌ No username file selected")
+                
+        except Exception as e:
+            self.results_text.append(f"❌ Error selecting username file: {str(e)}")
     
     def select_password_file(self):
-        """Select password wordlist file"""
-        file_path, _ = QFileDialog.getOpenFileName(
-            self, 
-            "Select Password Wordlist", 
-            "", 
-            "Text Files (*.txt);;All Files (*)"
-        )
-        if file_path:
-            self.password_file_input.setText(file_path)
-            self.add_file_to_list(file_path, "Password")
+        """Select password wordlist file with debugging"""
+        try:
+            self.results_text.append("🔍 Opening password file selection dialog...")
+            
+            file_path, _ = QFileDialog.getOpenFileName(
+                self, 
+                "Select Password Wordlist", 
+                "", 
+                "Text Files (*.txt);;All Files (*)"
+            )
+            
+            if file_path:
+                self.password_file_input.setText(file_path)
+                self.add_file_to_list(file_path, "Password")
+                
+                # Debug: Show file info
+                import os
+                if os.path.exists(file_path):
+                    file_size = os.path.getsize(file_path)
+                    with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                        lines = f.readlines()
+                        line_count = len([line for line in lines if line.strip()])
+                    
+                    self.results_text.append(f"✅ Password file selected: {file_path}")
+                    self.results_text.append(f"📊 File size: {file_size} bytes")
+                    self.results_text.append(f"📊 Passwords count: {line_count}")
+                    self.results_text.append(f"📋 First few passwords: {[line.strip() for line in lines[:3] if line.strip()]}")
+                else:
+                    self.results_text.append(f"❌ File not found: {file_path}")
+            else:
+                self.results_text.append("❌ No password file selected")
+                
+        except Exception as e:
+            self.results_text.append(f"❌ Error selecting password file: {str(e)}")
+    
+    def debug_file_selection(self):
+        """Debug file selection functionality"""
+        try:
+            self.results_text.append("🐛 DEBUG: File Selection Status")
+            self.results_text.append("=" * 50)
+            
+            # Check current file inputs
+            username_file = self.username_file_input.text().strip()
+            password_file = self.password_file_input.text().strip()
+            
+            self.results_text.append(f"📁 Username file: {username_file if username_file else 'Not selected'}")
+            self.results_text.append(f"📁 Password file: {password_file if password_file else 'Not selected'}")
+            
+            # Check if files exist
+            import os
+            if username_file:
+                if os.path.exists(username_file):
+                    file_size = os.path.getsize(username_file)
+                    self.results_text.append(f"✅ Username file exists ({file_size} bytes)")
+                else:
+                    self.results_text.append(f"❌ Username file not found: {username_file}")
+            
+            if password_file:
+                if os.path.exists(password_file):
+                    file_size = os.path.getsize(password_file)
+                    self.results_text.append(f"✅ Password file exists ({file_size} bytes)")
+                else:
+                    self.results_text.append(f"❌ Password file not found: {password_file}")
+            
+            # Check selected files list
+            selected_count = self.selected_files_list.count()
+            self.results_text.append(f"📋 Selected files count: {selected_count}")
+            
+            for i in range(selected_count):
+                item = self.selected_files_list.item(i)
+                if item:
+                    file_path = item.data(Qt.UserRole)
+                    self.results_text.append(f"   - {item.text()}")
+            
+            # Check common file locations
+            self.results_text.append("🔍 Checking common file locations:")
+            common_files = [
+                "username.txt",
+                "password.txt", 
+                "wordlists/username.txt",
+                "wordlists/password.txt",
+                "wordlists/common_usernames.txt",
+                "wordlists/common_passwords.txt"
+            ]
+            
+            for file_path in common_files:
+                if os.path.exists(file_path):
+                    file_size = os.path.getsize(file_path)
+                    self.results_text.append(f"   ✅ Found: {file_path} ({file_size} bytes)")
+                else:
+                    self.results_text.append(f"   ❌ Not found: {file_path}")
+            
+            self.results_text.append("🐛 Debug completed!")
+            
+        except Exception as e:
+            self.results_text.append(f"❌ Debug error: {str(e)}")
     
     def add_custom_files(self):
         """Add custom wordlist files"""
@@ -1095,6 +1313,7 @@ class BruteForceTab(QWidget):
                 files.append(file_path)
         return files
     
+    
     def create_welcome_section(self, layout):
         """Create welcome section with comprehensive brute force guide"""
         welcome_widget = QWidget()
@@ -1124,14 +1343,15 @@ class BruteForceTab(QWidget):
         <ul>
         <li>✅ Multi-Service Attack (SSH, FTP, HTTP, MySQL, PostgreSQL, MSSQL, MongoDB, Redis)</li>
         <li>✅ Advanced Attack Techniques (Intelligent, Dictionary, Hybrid, Mask, Rule-based)</li>
+        <li>✅ File Selection Buttons (📁 Select Username File, 📁 Select Password File)</li>
         <li>✅ Comprehensive Results Display (Credentials, Statistics, Vulnerabilities)</li>
         <li>✅ Real-time Progress Monitoring</li>
         <li>✅ Security Analysis & Recommendations</li>
         <li>✅ Export Results to Multiple Formats</li>
-        <li>✅ Full Page Scrolling Controls (⬆️⬇️ buttons + keyboard shortcuts)</li>
+        <li>✅ Debug File Selection (🐛 Debug Files button)</li>
         </ul>
-        <p><b>🚀 Quick Start:</b> Enter target → Click "START COMPREHENSIVE BRUTE FORCE" → View all results!</p>
-        <p><b>📜 Scroll Controls:</b> Use ⬆️⬇️ buttons or keyboard shortcuts (Ctrl+Home/End, PgUp/PgDown)</p>
+        <p><b>🚀 Quick Start:</b> Select credential files → Enter target → Click "START COMPREHENSIVE BRUTE FORCE" → View all results!</p>
+        <p><b>📁 File Selection:</b> Use "📁 Select Username File" and "📁 Select Password File" buttons to choose your wordlists</p>
         """)
         features_text.setWordWrap(True)
         features_text.setStyleSheet("font-size: 11px; color: #ecf0f1;")
@@ -1177,6 +1397,72 @@ class BruteForceTab(QWidget):
             page_step = scrollbar.pageStep()
             scrollbar.setValue(max(0, current_value - page_step))
             self.results_text.append("📄 Scrolled up one page")
+    
+    def add_credential(self):
+        """Add a credential to the test list"""
+        username = self.username_input.text().strip()
+        password = self.password_input.text().strip()
+        
+        if not username or not password:
+            self.results_text.append("❌ Please enter both username and password")
+            return
+        
+        # Add credential to a list (you could store this in a class variable)
+        if not hasattr(self, 'custom_credentials'):
+            self.custom_credentials = []
+        
+        credential = {'username': username, 'password': password}
+        self.custom_credentials.append(credential)
+        
+        self.results_text.append(f"✅ Added credential: {username}:{password}")
+        self.results_text.append(f"📊 Total custom credentials: {len(self.custom_credentials)}")
+        
+        # Clear the input fields
+        self.username_input.clear()
+        self.password_input.clear()
+    
+    def test_single_credential(self):
+        """Test a single credential against the target"""
+        target = self.target_input.text().strip()
+        username = self.username_input.text().strip()
+        password = self.password_input.text().strip()
+        
+        if not target:
+            self.results_text.append("❌ Please enter a target IP or hostname")
+            return
+        
+        if not username or not password:
+            self.results_text.append("❌ Please enter both username and password")
+            return
+        
+        # Disable buttons during test
+        self.test_credential_btn.setEnabled(False)
+        self.test_credential_btn.setText("🔄 Testing...")
+        
+        # Start single credential test in background thread
+        self.single_test_thread = SingleCredentialTestThread(
+            target, username, password, self.get_brute_options()
+        )
+        self.single_test_thread.result.connect(self.single_credential_finished)
+        self.single_test_thread.start()
+    
+    def single_credential_finished(self, result):
+        """Handle single credential test completion"""
+        # Re-enable button
+        self.test_credential_btn.setEnabled(True)
+        self.test_credential_btn.setText("🧪 Test Single Credential")
+        
+        if result.get('success'):
+            self.results_text.append(f"✅ CREDENTIAL FOUND: {result['username']}:{result['password']}")
+            self.results_text.append(f"🎯 Service: {result.get('service', 'Unknown')}")
+            self.results_text.append(f"⏰ Time: {result.get('timestamp', '')}")
+            
+            # Add to results table
+            self._add_credential_to_table(result)
+        else:
+            self.results_text.append(f"❌ Credential failed: {result['username']}:{result['password']}")
+            if result.get('error'):
+                self.results_text.append(f"   Error: {result['error']}")
 
 class BruteForceThread(QThread):
     """Thread for running brute force attacks"""

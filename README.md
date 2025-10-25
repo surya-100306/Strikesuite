@@ -2,7 +2,7 @@
 
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/yourusername/strikesuite)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/surya-100306/strikesuite)
 [![Security](https://img.shields.io/badge/security-advanced-red.svg)](https://github.com/yourusername/strikesuite)
 
 > **A comprehensive, advanced cybersecurity testing framework for penetration testers, security researchers, and cybersecurity professionals.**

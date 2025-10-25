@@ -3,7 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/surya-100306/strikesuite)
-[![Security](https://img.shields.io/badge/security-advanced-red.svg)](https://github.com/yourusername/strikesuite)
+[![Security](https://img.shields.io/badge/security-advanced-red.svg)](https://github.com/surya-100306/strikesuite)
 
 > **A comprehensive, advanced cybersecurity testing framework for penetration testers, security researchers, and cybersecurity professionals.**
 
@@ -11,7 +11,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/strikesuite.git
+git clone https://github.com/surya-100306/strikesuite.git
 cd strikesuite
 
 # Create virtual environment
@@ -511,8 +511,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 *Built with ❤️ for the cybersecurity community*
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/strikesuite?style=social)](https://github.com/yourusername/strikesuite)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/strikesuite?style=social)](https://github.com/yourusername/strikesuite)
-[![GitHub watchers](https://img.shields.io/github/watchers/yourusername/strikesuite?style=social)](https://github.com/yourusername/strikesuite)
+[![GitHub stars](https://img.shields.io/github/stars/surya-100306/strikesuite?style=social)](https://github.com/surya-100306/strikesuite)
+[![GitHub forks](https://img.shields.io/github/forks/surya-100306/strikesuite?style=social)](https://github.com/surya-100306/strikesuite)
+[![GitHub watchers](https://img.shields.io/github/watchers/yourusername/strikesuite?style=social)](https://github.com/surya-100306/strikesuite)
 
 </div>
